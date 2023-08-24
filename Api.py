@@ -16,7 +16,7 @@ class EmailRequest(BaseModel):
     product_name: str = None
     product_description: str = None
     user_name: str = None
-    post_title: str = None
+    post_title: str = None 
     topic: str = None
     website_url: str = None
 
