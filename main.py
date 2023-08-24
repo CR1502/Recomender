@@ -6,7 +6,7 @@ from fastapi import FastAPI, Body
 
 app = FastAPI()
 # Make sure you set up your API key
-openai.api_key = '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'
+openai.api_key = 'sk-'
 
 
 class EmailMarketingAssistant:
