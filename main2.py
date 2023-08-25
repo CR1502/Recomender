@@ -3,11 +3,9 @@ from bs4 import BeautifulSoup
 import requests
 
 # Make sure you set up your API key
-<<<<<<< HEAD
-openai.api_key = ''
-=======
-openai.api_key = 'key'
->>>>>>> 59424926c8bba657763d7644b1418b553655b6b4
+
+openai.api_key = 'lol'
+
 
 class EmailMarketingAssistant:
 
