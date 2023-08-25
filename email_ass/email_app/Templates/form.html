@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Email Generator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">  <!-- Adding Bebas Neue font -->
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #EAEAEA;
+            margin: 0;
+            padding: 0;
+        }
+        h2 {
+            font-family: 'Bebas Neue', cursive; 
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 32px;
+        }
+
+        .content-box {
+            background-color: white;
+            width: 30%;
+            margin: 50px auto;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .content-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label, select, input, textarea {
+            padding: 10px;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .inline-field {
+            display: inline-block;
+            vertical-align: middle; /* Centering things vertically */
+            margin-right: 10px;
+        }
+
+        textarea {
+            width: 85%;
+            height: 100px;
+            resize: vertical;
+        }
+
+        input[type="submit"] {
+            width: auto;
+            padding: 10px 20px;
+            background-color: #333;
+            color: white;
+            cursor: pointer;
+            border: none;
+            transition: background-color 0.2s;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #555;
+        }
+
+    </style>
+    <script>
+        function handleMailTypeChange(selectElement) {
+            const value = selectElement.value;
+
+            // Hide all optional fields initially
+            document.getElementById('productFields').style.display = 'none';
+            document.getElementById('nameField').style.display = 'none';
+            document.getElementById('blogFields').style.display = 'none';
+            document.getElementById('congratulateFields').style.display = 'none';
+
+            // Display relevant fields based on selection
+            if (value === 'e-commerce') {
+                document.getElementById('productFields').style.display = 'block';
+            } else if (value === 'people') {
+                document.getElementById('nameField').style.display = 'block';
+                document.getElementById('congratulateFields').style.display = 'block';
+            } else if (value === 'blog') {
+                document.getElementById('blogFields').style.display = 'block';
+            }
+        }
+    </script>
+</head>
+<body>
+
+<div class="content-box">
+    <h2>Email Marketing Assistant</h2>
+    <form action="/generate-emails/" method="post">
+        {% csrf_token %}
+        
+        <!-- Mail Type -->
+        <div class="inline-field">
+            <label><strong>Mail Type:</strong></label>
+            <select name="mail_type" id="mailType" onchange="handleMailTypeChange(this)">
+                <option value="e-commerce">E-commerce</option>
+                <option value="people">People</option>
+                <option value="blog">Blog</option>
+            </select>
+        </div><br>
+
+        <!-- Campaign Goal -->
+        <label><strong>Campaign Goal:</strong></label>
+        <select name="campaign_goal">
+            <option value="convince_to_buy">Convince to Buy</option>
+            <option value="welcome_new_user">Welcome New User</option>
+            <option value="congratulate_on_purchase">Congratulate on Purchase</option>
+            <option value="new_blog">New Blog</option>
+        </select><br>
+
+        <!-- E-commerce Details -->
+        <div id="productFields" style="display:none;">
+            <label><strong>Product Name:</strong></label>
+            <input type="text" name="product_name"><br>
+            <label for="product_description"><strong>Product Description:</strong></label><br>
+            <textarea name="product_description"></textarea>
+        </div>
+
+        <!-- People Details -->
+        <div id="nameField" style="display:none;">
+            <label><strong>User Name:</strong></label>
+            <input type="text" name="user_name">
+        </div>
+
+        <!-- Congratulate on Purchase -->
+        <div id="congratulateFields" style="display:none;">
+            <label><strong>Product Name:</strong></label>
+            <input type="text" name="product_name_congratulate">
+        </div>
+
+        <!-- Blog Details -->
+        <div id="blogFields" style="display:none;">
+            <label><strong>Blog Post Title:</strong></label>
+            <input type="text" name="post_title"><br>
+            <label><strong>Blog Topic:</strong></label>
+            <input type="text" name="topic">
+        </div>
+
+        <!-- Submit Button -->
+        <input type="submit" value="Generate Email">
+    </form>
+</div>
+
+</body>
+</html>

@@ -1,10 +1,9 @@
 import openai
-import streamlit as st
 from bs4 import BeautifulSoup
 import requests
 
 # Make sure you set up your API key
-openai.api_key = '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'
+openai.api_key = ''
 
 class EmailMarketingAssistant:
 
@@ -21,6 +20,11 @@ class EmailMarketingAssistant:
                 "Welcome {user_name}! We're thrilled to have you on board.",
                 "Hi {user_name}, thanks for choosing us! Let's embark on this journey together.",
                 "A warm welcome to our community, {user_name}!"
+            ],
+            'congratulate_on_purchase':[
+                "Congratulations on your new {product_name} purchase, {user_name}! We're sure you'll love it.",
+                "Hey {user_name}, great choice! Your new {product_name} is on its way. Enjoy!",
+                "Thank you for choosing {product_name}, {user_name}! We're excited for you to try it out."
             ],
         },
         'blog': {
@@ -72,7 +76,7 @@ if __name__ == "__main__":
     assistant = EmailMarketingAssistant()
 
     mail_type = input("Enter the kind of mail to send (e-commerce, people, blog, etc.): ")
-    campaign_goal = input("Enter your campaign goal (convince_to_buy, welcome_new_user, new_blog): ")
+    campaign_goal = input("Enter your campaign goal (convince_to_buy, congratulate_on_purchase, welcome_new_user, new_blog): ")
 
     details = {}
     
@@ -84,6 +88,8 @@ if __name__ == "__main__":
     
     # For new customer related prompts
     if mail_type == "people" and campaign_goal in ['welcome_new_user']:
+        details['user_name'] = input("Provide new users name: ")
+    elif mail_type == "people" and campaign_goal in ['congratulate_on_purchase']:
         details['user_name'] = input("Provide new users name: ")
 
     # For blog related prompts
@@ -101,41 +107,3 @@ if __name__ == "__main__":
     print("\nRecommended Email Contents:\n")
     for i, content in enumerate(email_contents, 1):
         print(f"Email {i}:\n{content}\n")
-
-
-def main():
-    st.title('Email Marketing Content Assistant')
-
-    mail_type = st.selectbox("Select the type of mail:", ['e-commerce', 'people', 'blog'])
-    campaign_goal = st.selectbox("Select your campaign goal:", ['convince_to_buy', 'welcome_new_user', 'new_blog'])
-
-    details = {}
-    
-    if mail_type == "e-commerce":
-        details['product_name'] = st.text_input("Enter the product name:")
-        if campaign_goal in ['convince_to_buy']:
-            details['product_description'] = st.text_input("Provide a brief description of the product:")
-    
-    if mail_type == "people" and campaign_goal in ['welcome_new_user']:
-        details['user_name'] = st.text_input("Provide new users name:")
-
-    if mail_type == "blog" and campaign_goal == "new_blog":
-        details['post_title'] = st.text_input("Enter the blog post title:")
-        details['topic'] = st.text_input("Enter the post topic:")
-
-    website_url = st.text_input("Enter your company website URL (or leave blank to skip):")
-
-    if st.button("Generate Emails"):
-        assistant = EmailMarketingAssistant()
-
-        if website_url:
-            company_description = assistant.get_company_description(website_url)
-            st.write(f"Fetched company description: {company_description}")
-
-        email_contents = assistant.get_sample_email(mail_type, campaign_goal, **details)
-
-        for i, content in enumerate(email_contents, 1):
-            st.write(f"Email {i}:\n{content}\n")
-
-if __name__ == '__main__':
-    main()
