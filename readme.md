@@ -57,5 +57,4 @@
 </ol>
 <h2>License</h2>
 <p>This project is licensed under the MIT License.</p>
-<hr>
-<p>Please customize this template to better fit your project. Adjust the repository link, directory names, and any additional information that might be relevant to your specific application.</p>
+
