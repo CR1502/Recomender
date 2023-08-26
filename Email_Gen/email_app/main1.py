@@ -1,9 +1,10 @@
+# This is the main python file that generates the emails
 import openai
 from bs4 import BeautifulSoup
 import requests
 
 # Make sure you set up your API key
-openai.api_key = 'YOUR_API_KEY'
+openai.api_key = 'YOUR_OPENAI_API_KEY'
 class EmailMarketingAssistant:
 
     SAMPLE_EMAILS = {
