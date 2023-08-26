@@ -1,5 +1,3 @@
-<p>Certainly! Below is a template <code>README.md</code> file for your Django project:</p>
-<hr>
 <h1>Email Marketing Assistant</h1>
 <p>An application that assists in generating marketing emails based on user input and preferences.</p>
 <h2>Table of Contents</h2>
