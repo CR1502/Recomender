@@ -4,6 +4,7 @@ from django.http import JsonResponse
 from email_app.main1 import EmailMarketingAssistant
 
 def generate_emails(request):
+    email_contents = []
     if request.method == 'POST':
         # Get data from the form
         mail_type = request.POST.get('mail_type')
@@ -19,7 +20,6 @@ def generate_emails(request):
         # Process data using the EmailMarketingAssistant class
         assistant = EmailMarketingAssistant()
         email_contents = assistant.get_sample_email(mail_type, campaign_goal, **details)
-        
-        return JsonResponse({'emails': email_contents})
 
-    return render(request, 'form.html')  # Assuming your template is named generate_emails.html
+
+    return render(request, 'form.html', {'emails': email_contents})
