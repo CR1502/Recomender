@@ -1,4 +1,5 @@
-<h1>Email Marketing Assistant</h1>
+<h1>PromptlyPost</h1>h1>
+<h2>Email Marketing Assistant</h2>
 <p>An application that assists in generating marketing emails based on user input and preferences.</p>
 <h2>Table of Contents</h2>
 <ul>
